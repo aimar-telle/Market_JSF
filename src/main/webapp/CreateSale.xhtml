@@ -14,7 +14,12 @@
 				<tr>
 					<td>Izenburua:</td>
 					<td><h:inputText id="izenburua"
-							value="#{createSale.izenburua}" /></td>
+							value="#{createSale.izenburua}" required="true"
+							requiredMessage="Izenburua beharrezkoa da">
+							<f:validateLength minimum="3" maximum="50" />
+							<p:ajax event="blur" update="izenburuaMsg" />
+						</h:inputText>
+					<p:message id="izenburuaMsg" for="izenburua" /></td>
 				</tr>
 				<tr>
 					<td>Deskripzioa:</td>
@@ -24,7 +29,13 @@
 				<tr>
 					<td>Prezioa:</td>
 					<td><h:inputText id="prezioa" size="8"
-							value="#{createSale.prezioa}" /></td>
+							value="#{createSale.prezioa}" required="true"
+							requiredMessage="Prezioa beharrezkoa da"
+							converterMessage="Zenbaki bat sartu">
+							<f:validateDoubleRange minimum="0.01" />
+							<p:ajax event="blur" update="prezioaMsg" />
+						</h:inputText>
+						<p:message id="prezioaMsg" for="prezioa" /></td>
 				</tr>
 				<tr>
 					<td>Argazkia:</td>
@@ -33,9 +44,8 @@
 				<tr>
 					<td>Egoera:</td>
 					<td><h:selectOneMenu id="egoera" value="#{createSale.egoera}">
-						<f:selectItems value="#{createSale.egoerak}" />
-					</h:selectOneMenu>
-					</td>
+							<f:selectItems value="#{createSale.egoerak}" />
+						</h:selectOneMenu></td>
 				</tr>
 				<tr>
 					<td>Argitarapen eguna:</td>
@@ -46,7 +56,8 @@
 			<p>
 				<h:commandButton value="Sortu Eskaintza"
 					action="#{createSale.sortuEskaintza}" />
-				<h:commandButton value="Itxi" action="Hasiera" immediate="true" />
+				<h:commandButton value="Itxi" action="#{createSale.itxi}"
+					immediate="true" />
 			</p>
 			<h:messages id="mezuak" style="color:blue" />
 		</h:form>

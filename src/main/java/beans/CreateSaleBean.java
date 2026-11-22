@@ -71,6 +71,8 @@ public class CreateSaleBean implements Serializable {
                 img
             );
 
+            garbitu();
+            
             return "Hasiera";
 
         } catch (ParamNullException | MustBeLaterThanTodayException |
@@ -106,5 +108,20 @@ public class CreateSaleBean implements Serializable {
     }
     public String getSellerMail() { return sellerMail; }
     public void setSellerMail(String sellerMail) { this.sellerMail = sellerMail; }
+    
+    private void garbitu() {
+        izena = null;
+        deskribapena = null;
+        prezioa = 0;
+        data = new Date();
+        egoera = null;
+        argazkia = null;
+    }
+
+    public String itxi() {
+        garbitu();
+        return "Hasiera";
+    }
+    
 
 }
