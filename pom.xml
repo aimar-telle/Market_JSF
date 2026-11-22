@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.is2.frameworks</groupId>
-  <artifactId>MarketJSF</artifactId>
+  <artifactId>Market_JSF</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>MarketJSF</name>
+  <name>Market_JSF</name>
   <!-- Beheko bertsioak batera lan egiten dute.
 	Tomcat-eko bertsioa aldatzen bada, orduan dependentzi guztiak aldatu
 	beharko dira.
