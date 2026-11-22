@@ -38,7 +38,14 @@
 					<td>Saltzailea:</td>
 					<td><h:outputText value="#{querySales.selected.seller.name}" /></td>
 				</tr>
-				
+				<tr>
+					<td>Argazkia:</td>
+					<td><ui:fragment rendered="#{not empty querySales.irudia}">
+							<img src="#{querySales.irudia}" width="200" alt="Argazkia" />
+						</ui:fragment> <h:outputText value="Ez dago irudirik" style="color:gray"
+							rendered="#{empty querySales.irudia}" /></td>
+				</tr>
+
 			</table>
 		</h:panelGroup>
 

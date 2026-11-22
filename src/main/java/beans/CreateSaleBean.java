@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.primefaces.model.file.UploadedFile;
 
+import jakarta.servlet.http.Part;
+
 import businessLogic.BLFacade;
 import exceptions.MustBeLaterThanTodayException;
 import exceptions.ParamNullException;
@@ -34,7 +36,7 @@ public class CreateSaleBean implements Serializable {
     private float prezioa;
     private Date data;
     private String egoera;
-    private UploadedFile argazkia;
+    private Part argazkia;
 
     private List<String> egoerak = new ArrayList<String>(Arrays.asList("Berria","Oso Ona","Egokia","Oso zaharra"));
 
@@ -48,15 +50,14 @@ public class CreateSaleBean implements Serializable {
 
     public String sortuEskaintza() {
         try {
-            File file = null;
-
-            if (argazkia != null && argazkia.getSize() > 0) {
-                file = new File(argazkia.getFileName());
-
-                try (InputStream input = argazkia.getInputStream()) {
-                    Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                }
-            }
+        	
+        	File img = null;
+			if (argazkia != null && argazkia.getSize() > 0) {
+				img = File.createTempFile("argazkia_", "_" + argazkia.getSubmittedFileName());
+				try (InputStream in = argazkia.getInputStream()) {
+					Files.copy(in, img.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				}
+			}
 
             int numEgoera = egoerak.indexOf(egoera);
 
@@ -67,7 +68,7 @@ public class CreateSaleBean implements Serializable {
                 prezioa,
                 data,
                 sellerMail,
-                file
+                img
             );
 
             return "Hasiera";
@@ -97,8 +98,8 @@ public class CreateSaleBean implements Serializable {
     public String getEgoera() { return egoera; }
     public void setEgoera(String egoera) { this.egoera = egoera; }
 
-    public UploadedFile getArgazkia() { return argazkia; }
-    public void setArgazkia(UploadedFile argazkia) { this.argazkia = argazkia; }
+    public Part getArgazkia() { return argazkia; }
+    public void setArgazkia(Part argazkia) { this.argazkia = argazkia; }
 
     public List<String> getEgoerak() {
         return egoerak;

@@ -9,7 +9,7 @@
 	<h:body>
 		<h1>Create sale</h1>
 
-		<h:form id="createForm">
+		<h:form id="createForm" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td>Izenburua:</td>
@@ -28,12 +28,10 @@
 				</tr>
 				<tr>
 					<td>Argazkia:</td>
-					<td><p:fileUpload id="argazkia" mode="simple"
-							skinSimple="true" label="Argazkia igo"
-							value="#{createSale.argazkia}" /></td>
+					<td><h:inputFile id="argazkia" value="#{createSale.argazkia}" /></td>
 				</tr>
 				<tr>
-					<td><h3>Egoera:</h3></td>
+					<td>Egoera:</td>
 					<td><h:selectOneMenu id="egoera" value="#{createSale.egoera}">
 						<f:selectItems value="#{createSale.egoerak}" />
 					</h:selectOneMenu>
