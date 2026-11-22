@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" xmlns:p="primefaces"
+	xmlns:ui="jakarta.faces.facelets">
+<f:view>
+	<h:head>
+		<title>Query Sales</title>
+	</h:head>
+	<h:body>
+		<h1>Query sales</h1>
+
+		<h:form id="searchForm">
+			<p:inputText id="searchText" value="#{querySales.searchText}" />
+			<p:commandButton value="Search" action="#{querySales.search}"
+				update="results" />
+
+			<h:panelGroup id="results" layout="block">
+				<h:outputText value="Products"
+					rendered="#{not querySales.searched or not empty querySales.sales}" />
+				<h:outputText value="No products found"
+					rendered="#{querySales.searched and empty querySales.sales}" />
+
+				<p:dataTable id="salesTable" value="#{querySales.sales}" var="sale"
+					rendered="#{not empty querySales.sales}">
+					<p:column headerText="Title">
+						<h:outputText value="#{sale.title}" />
+					</p:column>
+					<p:column headerText="Price">
+						<h:outputText value="#{sale.price}" />
+					</p:column>
+					<p:column headerText="Publication date">
+						<h:outputText value="#{sale.publicationDate}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Details">
+						<p:commandButton value="Ikusi" ajax="false"
+							action="#{querySales.ikusi(sale)}" />
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+
+	</h:body>
+</f:view>
+</html>

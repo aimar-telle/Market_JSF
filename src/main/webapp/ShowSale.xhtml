@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" xmlns:p="primefaces"
+	xmlns:ui="jakarta.faces.facelets">
+<f:view>
+	<h:head>
+		<title>Show Sale</title>
+	</h:head>
+	<h:body>
+		<h1>Sale details</h1>
+
+		<h:panelGroup rendered="#{querySales.selected != null}">
+			<table>
+				<tr>
+					<td>Izenburua:</td>
+					<td><h:outputText value="#{querySales.selected.title}" /></td>
+				</tr>
+				<tr>
+					<td>Deskripzioa:</td>
+					<td><h:outputText value="#{querySales.selected.description}" /></td>
+				</tr>
+				<tr>
+					<td>Egoera:</td>
+					<td><h:outputText value="#{querySales.selectedEgoera}" /></td>
+				</tr>
+				<tr>
+					<td>Prezioa:</td>
+					<td><h:outputText value="#{querySales.selected.price}" /></td>
+				</tr>
+				<tr>
+					<td>Data:</td>
+					<td><h:outputText
+							value="#{querySales.selected.publicationDate}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText></td>
+				</tr>
+				<tr>
+					<td>Saltzailea:</td>
+					<td><h:outputText value="#{querySales.selected.seller.name}" /></td>
+				</tr>
+				
+			</table>
+		</h:panelGroup>
+
+		<h:outputText value="No sale selected"
+			rendered="#{querySales.selected == null}" />
+
+
+		<h:form>
+			<h:commandButton value="Atzera" action="QuerySales" immediate="true" />
+		</h:form>
+	</h:body>
+</f:view>
+</html>

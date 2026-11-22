@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" xmlns:p="primefaces"
+	xmlns:ui="jakarta.faces.facelets">
+<f:view>
+	<h:head>
+		<title>Create Sale</title>
+	</h:head>
+	<h:body>
+		<h1>Create sale</h1>
+
+		<h:form id="createForm">
+			<table>
+				<tr>
+					<td>Izenburua:</td>
+					<td><h:inputText id="izenburua"
+							value="#{createSale.izenburua}" /></td>
+				</tr>
+				<tr>
+					<td>Deskripzioa:</td>
+					<td><h:inputTextarea id="deskribapena" rows="5" cols="30"
+							value="#{createSale.deskribapena}" /></td>
+				</tr>
+				<tr>
+					<td>Prezioa:</td>
+					<td><h:inputText id="prezioa" size="8"
+							value="#{createSale.prezioa}" /></td>
+				</tr>
+				<tr>
+					<td>Argazkia:</td>
+					<td><p:fileUpload id="argazkia" mode="simple"
+							skinSimple="true" label="Argazkia igo"
+							value="#{createSale.argazkia}" /></td>
+				</tr>
+				<tr>
+					<td><h3>Egoera:</h3></td>
+					<td><h:selectOneMenu id="egoera" value="#{createSale.egoera}">
+						<f:selectItems value="#{createSale.egoerak}" />
+					</h:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<td>Argitarapen eguna:</td>
+					<td><p:datePicker id="data" value="#{createSale.data}"
+							yearNavigator="true" inline="true" /></td>
+				</tr>
+			</table>
+			<p>
+				<h:commandButton value="Sortu Eskaintza"
+					action="#{createSale.sortuEskaintza}" />
+				<h:commandButton value="Itxi" action="Hasiera" immediate="true" />
+			</p>
+			<h:messages id="mezuak" style="color:blue" />
+		</h:form>
+
+	</h:body>
+</f:view>
+</html>
