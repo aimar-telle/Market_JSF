@@ -27,31 +27,31 @@ import jakarta.inject.Named;
 @Named("createSale")
 @SessionScoped
 public class CreateSaleBean implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    BLFacade facadeBL;
+	BLFacade facadeBL;
 
-    private String izena;
-    private String deskribapena;
-    private float prezioa;
-    private Date data;
-    private String egoera;
-    private Part argazkia;
+	private String izena;
+	private String deskribapena;
+	private float prezioa;
+	private Date data;
+	private String egoera;
+	private Part argazkia;
 
-    private List<String> egoerak = new ArrayList<String>(Arrays.asList("Berria","Oso Ona","Egokia","Oso zaharra"));
+	private List<String> egoerak = new ArrayList<String>(Arrays.asList("Berria","Oso Ona","Egokia","Oso zaharra"));
 
-    private String sellerMail = "seller1@gmail.com";
+	private String sellerMail = "seller1@gmail.com";
 
-    public CreateSaleBean() {
-        facadeBL = FacadeBean.getBusinessLogic();
-        data = new Date();
-        System.out.println(egoerak);
-    }
+	public CreateSaleBean() {
+		facadeBL = FacadeBean.getBusinessLogic();
+		data = new Date();
+		System.out.println(egoerak);
+	}
 
-    public String sortuEskaintza() {
-        try {
-        	
-        	File img = null;
+	public String sortuEskaintza() {
+		try {
+
+			File img = null;
 			if (argazkia != null && argazkia.getSize() > 0) {
 				img = File.createTempFile("argazkia_", "_" + argazkia.getSubmittedFileName());
 				try (InputStream in = argazkia.getInputStream()) {
@@ -59,69 +59,80 @@ public class CreateSaleBean implements Serializable {
 				}
 			}
 
-            int numEgoera = egoerak.indexOf(egoera);
+			int numEgoera = egoerak.indexOf(egoera);
 
-            facadeBL.createSale(
-                izena,
-                deskribapena,
-                numEgoera,
-                prezioa,
-                data,
-                sellerMail,
-                img
-            );
+			facadeBL.createSale(
+					izena,
+					deskribapena,
+					numEgoera,
+					prezioa,
+					data,
+					sellerMail,
+					img
+					);
 
-            garbitu();
-            
-            return "Hasiera";
+			garbitu();
 
-        } catch (ParamNullException | MustBeLaterThanTodayException |
-                 SaleAlreadyExistException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+			return "Hasiera";
 
-    public String getIzenburua() { return izena; }
-    public void setIzenburua(String izena) { this.izena = izena; }
+		} catch (ParamNullException | MustBeLaterThanTodayException |
+				SaleAlreadyExistException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-    public String getDeskribapena() { return deskribapena; }
-    public void setDeskribapena(String deskribapena) { this.deskribapena = deskribapena; }
+	public String getIzenburua() { return izena; }
+	public void setIzenburua(String izena) { this.izena = izena; }
 
-    public float getPrezioa() { return prezioa; }
-    public void setPrezioa(float prezioa) { this.prezioa = prezioa; }
+	public String getDeskribapena() { return deskribapena; }
+	public void setDeskribapena(String deskribapena) { this.deskribapena = deskribapena; }
 
-    public Date getData() { return data; }
-    public void setData(Date data) { this.data = data; }
+	public float getPrezioa() { return prezioa; }
+	public void setPrezioa(float prezioa) { this.prezioa = prezioa; }
 
-    public String getEgoera() { return egoera; }
-    public void setEgoera(String egoera) { this.egoera = egoera; }
+	public Date getData() { return data; }
+	public void setData(Date data) { this.data = data; }
 
-    public Part getArgazkia() { return argazkia; }
-    public void setArgazkia(Part argazkia) { this.argazkia = argazkia; }
+	public String getEgoera() { return egoera; }
+	public void setEgoera(String egoera) { this.egoera = egoera; }
 
-    public List<String> getEgoerak() {
-        return egoerak;
-    }
-    public String getSellerMail() { return sellerMail; }
-    public void setSellerMail(String sellerMail) { this.sellerMail = sellerMail; }
-    
-    private void garbitu() {
-        izena = null;
-        deskribapena = null;
-        prezioa = 0;
-        data = new Date();
-        egoera = null;
-        argazkia = null;
-    }
+	public Part getArgazkia() { return argazkia; }
+	public void setArgazkia(Part argazkia) { this.argazkia = argazkia; }
 
-    public String itxi() {
-        garbitu();
-        return "Hasiera";
-    }
-    
+	public List<String> getEgoerak() {
+		return egoerak;
+	}
+	public String getSellerMail() { return sellerMail; }
+	public void setSellerMail(String sellerMail) { this.sellerMail = sellerMail; }
+
+	private void garbitu() {
+		izena = null;
+		deskribapena = null;
+		prezioa = 0;
+		data = new Date();
+		egoera = null;
+		argazkia = null;
+	}
+
+	public String itxi() {
+		garbitu();
+		return "Hasiera";
+	}
+
+	public void validateData(jakarta.faces.context.FacesContext ctx, jakarta.faces.component.UIComponent comp,
+			Object value) throws jakarta.faces.validator.ValidatorException {
+		Date d = (Date) value;
+		if (d == null || d.before(configuration.UtilDate.trim(new Date()))) {
+			throw new jakarta.faces.validator.ValidatorException(
+					new jakarta.faces.application.FacesMessage(
+							jakarta.faces.application.FacesMessage.SEVERITY_ERROR,
+							"Data gaurkoa edo geroagokoa izan behar da", null));
+		}
+	}
+
 
 }

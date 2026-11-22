@@ -18,8 +18,7 @@
 							requiredMessage="Izenburua beharrezkoa da">
 							<f:validateLength minimum="3" maximum="50" />
 							<p:ajax event="blur" update="izenburuaMsg" />
-						</h:inputText>
-					<p:message id="izenburuaMsg" for="izenburua" /></td>
+						</h:inputText> <p:message id="izenburuaMsg" for="izenburua" /></td>
 				</tr>
 				<tr>
 					<td>Deskripzioa:</td>
@@ -34,8 +33,7 @@
 							converterMessage="Zenbaki bat sartu">
 							<f:validateDoubleRange minimum="0.01" />
 							<p:ajax event="blur" update="prezioaMsg" />
-						</h:inputText>
-						<p:message id="prezioaMsg" for="prezioa" /></td>
+						</h:inputText> <p:message id="prezioaMsg" for="prezioa" /></td>
 				</tr>
 				<tr>
 					<td>Argazkia:</td>
@@ -50,7 +48,9 @@
 				<tr>
 					<td>Argitarapen eguna:</td>
 					<td><p:datePicker id="data" value="#{createSale.data}"
-							yearNavigator="true" inline="true" /></td>
+							validator="#{createSale.validateData}">
+							<p:ajax event="dateSelect" update="dataMsg" />
+						</p:datePicker> <p:message id="dataMsg" for="data" /></td>
 				</tr>
 			</table>
 			<p>
